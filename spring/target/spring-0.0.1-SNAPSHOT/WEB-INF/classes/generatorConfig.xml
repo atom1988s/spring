@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+ <classPathEntry location="C:\Users\dgic\.m2\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
+  <context id="context1" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/dgic" userId="root" password="dGIC2017" />
+    <javaModelGenerator targetPackage="db.model" targetProject="spring" />
+    <sqlMapGenerator targetPackage="db.mapper" targetProject="spring" />
+    <javaClientGenerator targetPackage="db.mapper" targetProject="spring" type="XMLMAPPER" />
+    <table tableName="%" enableSelectByExample="false" enableDeleteByExample="false"  enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false"/>
+  </context>
+</generatorConfiguration>

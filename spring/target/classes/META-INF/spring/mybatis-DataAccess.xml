@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans" xmlns:sec="http://www.springframework.org/schema/security" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName">
+			<beans:value>com.mysql.jdbc.Driver</beans:value>
+		</beans:property>
+		<beans:property name="url">
+			<beans:value>jdbc:mysql://localhost:3306/dgic</beans:value>
+		</beans:property>
+		<beans:property name="username">
+			<beans:value>root</beans:value>
+		</beans:property>
+		<beans:property name="password">
+			<beans:value>dGIC2017</beans:value>
+		</beans:property>
+	</beans:bean>
+
+	<!-- scan for mapper -->
+	<mybatis:scan base-package="db.mapper" />
+
+</beans:beans>
