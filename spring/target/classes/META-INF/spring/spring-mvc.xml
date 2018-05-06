@@ -15,6 +15,12 @@
 
 	<tx:annotation-driven transaction-manager="taransactionManager" />
 
+	<!-- パッケージを指定してコントローラクラスなどを検索 -->
+	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="db.model" />
+	<context:component-scan base-package="service" />
+	<context:component-scan base-package="logic" />
+	
 	<bean id="taransactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />

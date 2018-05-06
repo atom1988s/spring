@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
@@ -9,41 +9,47 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- アノテーションを使って実行 -->
 	<mvc:annotation-driven />
 
 	<!-- パッケージを指定してコントローラクラスなどを検索 -->
-	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="db.model" />
 	<context:component-scan base-package="service" />
 	<context:component-scan base-package="logic" />
 
-
-<!-- 	<tx:annotation-driven transaction-manager="taransactionManager" />
-
-	<bean id="taransactionManager"
+	<!-- scan for mapper -->
+	<mybatis:scan base-package="db.mapper" />
+	
+	<!-- transaction-managerにトランザクションマネージャの実装beanを設定 -->
+	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	"/WEB-INF/view/"のjsp拡張子をビューテンプレートとして使用
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp'
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
+	
+	<import resource="classpath:META-INF/spring/mybatis-DataAccess.xml" />
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<mvc:view-resolvers>
-		<mvc:bean-name />
-		<mvc:tiles />
-		<mvc:jsp prefix="/WEB-INF/views/" />
-	</mvc:view-resolvers>
-	<mvc:tiles-configurer>
-		<mvc:definitions location="/WEB-INF/tiles/tiles-definitions.xml" />
-	</mvc:tiles-configurer>
 
-	webapp下にjsやcssを配置する際の指定。resources下を全てresourceとみなす
-	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/dgic</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>dGIC2017</value>
+		</property>
+	</bean>
 
 </beans>

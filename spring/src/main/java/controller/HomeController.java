@@ -15,13 +15,14 @@ import service.MachineService;
  *
  */
 @Controller
+@RequestMapping(path = "/")
 public class HomeController {
 
 	@Autowired
 	MachineService machineService;
 
 	//ÉzÅ[ÉÄâÊñ ï\é¶
-	@RequestMapping(path = "/")
+	
 	public String view(Model model) {
 		return "index";
 	}
